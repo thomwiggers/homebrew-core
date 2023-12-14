@@ -8,7 +8,7 @@ class Texlive < Formula
   mirror "https://ftp.tu-chemnitz.de/pub/tug/historic/systems/texlive/2023/texlive-20230313-source.tar.xz"
   sha256 "3878aa0e1ed0301c053b0e2ee4e9ad999c441345f4882e79bdd1c8f4ce9e79b9"
   license :public_domain
-  revision 2
+  revision 3
   head "https://github.com/TeX-Live/texlive-source.git", branch: "trunk"
 
   livecheck do
@@ -62,6 +62,7 @@ class Texlive < Formula
   depends_on "mpfr"
   depends_on "openjdk"
   depends_on "openssl@3"
+  depends_on "pcre"
   depends_on "perl"
   depends_on "pixman"
   depends_on "potrace"
@@ -529,6 +530,7 @@ class Texlive < Formula
     assert_match "Usage", shell_output("#{bin}/tex --help")
     assert_match "revision", shell_output("#{bin}/tlmgr --version")
     assert_match "AMS mathematical facilities for LaTeX", shell_output("#{bin}/tlmgr info amsmath")
+    assert_match "PCRE regex support", shell_output("#{bin}/chktex --version")
 
     (testpath/"test.latex").write <<~EOS
       \\documentclass[12pt]{article}
